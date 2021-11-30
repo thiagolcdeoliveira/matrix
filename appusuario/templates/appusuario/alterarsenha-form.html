@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Alterar Senha{% endblock %}
+
+{% block body_block %}
+
+
+<div class="col-xl-10  col-center-auto justify-content-md-center col-lg-10">
+    {% if message_sucess %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <h5 class="alert-heading"> Atualizado com sucesso!</h5>
+        <span> Seu perfil foi atualizado com sucesso.</span>
+        <hr>
+
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %}
+    {% if form.errors %}
+
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <h5 class="alert-heading"> Erro!</h5>
+        {% if form.errors.items|length == 1 %}
+        <p>Corrija o campo abaixo.</p>{% else %}
+        <p>Corrija os campos abaixo.</p>
+        {% endif %}
+        <hr>
+
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    {% endif %}
+    <div class="card shadow mb-4">
+
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h5 class="m-0 font-weight-bold "><i class="fas fa-edit "></i> Alteração de Senha</h5>
+            <div class="dropdown no-arrow">
+                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                     aria-labelledby="dropdownMenuLink">
+                    <div class="dropdown-header"><i class="fas fa-fw fa-wrench"></i> Ações Gerais</div>
+
+                    <a class="dropdown-item" href="{% url 'user-profile-edit' %}">
+                        <i class="fas fa-fw fa-edit"></i> Editar Perfil</a>
+
+
+                    <a href="{% url 'password_change' %}"
+                       class="dropdown-item"> <i class="fas fa-fw fa-edit"></i> Alterar
+                        Senha</a>
+                </div>
+            </div>
+
+        </div>
+        <!-- Card Body -->
+        <div class="card-body">
+
+
+            <form class="form-user" action="" enctype="multipart/form-data" method="post"
+                  id="">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label><i class="fas fa-user fa-sm"></i> {{ form.old_password.label_tag }} </label>
+                    {{ form.old_password }}
+                    {% if form.old_password.errors %}
+                    <div class="label">
+                        {{ form.old_password.errors }}
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-user fa-sm"></i> {{ form.new_password1.label_tag }}</label>
+                    {{ form.new_password1 }}
+                    {% if form.new_password1.help_text %}
+                    <div class="ui info message">{{ form.new_password1.help_text|safe }}</div>
+                    {% endif %}
+                    {% if form.new_password1.errors %}
+                    <div class="label">
+                        {{ form.new_password1.errors }}
+                    </div>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label><i class="fas fa-user fa-sm"></i> {{ form.new_password2.label_tag }}</label>
+                    {{ form.new_password2 }}
+                    {% if form.new_password2.errors %}
+                    <div class="label">
+                        {{ form.new_password2.errors }}
+                    </div>
+                    {% endif %}
+                    {% if form.new_password2.help_text %}
+                    <div class="help">{{ form.new_password2.help_text|safe }}</div>
+                    {% endif %}
+                </div>
+
+
+        </div>
+        <div class="btn-group btn-lg btn-block">
+            <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-light ">
+                voltar
+            </a>
+            <button type="submit" class="btn btn-dark">Salvar</button>
+        </div>
+    </div>
+
+
+    </form>
+</div>
+
+
+{% endblock %}

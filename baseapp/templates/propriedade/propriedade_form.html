@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block title_block %}
+Adicionar um Chamado
+{% endblock title_block %}
+{% block body_block %}
+
+
+{% load i18n %}
+{{ message_success }}<!-- Area Chart -->
+
+<div class="col-xl-10  col-center-auto justify-content-md-center col-lg-10">
+    {% if form.errors %}
+
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <h5 class="alert-heading"> Erro!</h5>
+
+        {% if form.errors.items|length == 1 %}
+        <p>Corrija o campo abaixo.</p>{% else %}
+        <p>Corrija os campos abaixo.</p>
+        {% endif %}
+
+
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    {% endif %}
+
+
+    <div class="card shadow mb-4">
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-dark">Adicionar uma Propriedade</h6>
+        </div>
+        <!-- Card Body -->
+        <div class="card-body">
+            <form id="formgrafico" class="ui form warning" action="" method="post" enctype="multipart/form-data"> {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>{{ form.nome.label }}</label>
+                        {{ form.nome }}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>{{ form.tipo_propriedade.label }}</label>
+                        <div class="input-group">
+                            {{ form.tipo_propriedade }}
+                            <div class="input-group-append">
+                                <a data-url="{%url 'tipo-propriedade-ajax-add'  %}" class="btn btn-dark js-create-object">
+                                    <i class="fas fa-plus fa-sm"></i>
+                                </a>
+<!--                                <a data-url="{%url 'propriedade-search'  %}" class="btn btn-dark js-create-object">-->
+<!--                                    <i class="fas fa-search fa-sm"></i>-->
+<!--                                </a>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>{{ form.numero_patrimonio.label }}</label>
+                        {{ form.numero_patrimonio }}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>{{ form.endereco.label }}</label>
+                        <div class="input-group">
+                            {{ form.endereco }}
+                            <div class="input-group-append">
+                                <a data-url="{%url 'endereco-ajax-add'  %}" class="btn btn-dark js-create-object">
+                                    <i class="fas fa-plus fa-sm"></i>
+                                </a>
+<!--                                <a data-url="{%url 'propriedade-search'  %}" class="btn btn-dark js-create-object">-->
+<!--                                    <i class="fas fa-search fa-sm"></i>-->
+<!--                                </a>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="btn-group btn-lg btn-block">
+                    <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-light ">
+                        voltar
+                    </a>
+<!--                    <a data-url="{%url 'grafico-testar'  %}" class="btn teste-grafico js-create-object-grafico">-->
+<!--                                    <i class="fas fa-check fa-sm"></i> Testar-->
+<!--                    </a>-->
+                    <button type="submit" class="btn btn-dark">Cadastrar</button>
+                </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal modal_add" id="modal-object">
+
+</div>
+
+
+{%endblock%}

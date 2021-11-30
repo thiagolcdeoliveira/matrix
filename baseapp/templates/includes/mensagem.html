@@ -1,0 +1,26 @@
+ <div class="event">
+                            <div class="label">
+                              <img src="{{mensagem.usuario.imagem}}">
+                            </div>
+                            <div class="content">
+                              <div class="summary">
+                                <a class="user">
+                                 {{mensagem.usuario}}
+                                </a>
+                                <div class="date">
+                                {{mensagem.data}}
+                                </div>
+                              </div>
+                              <div class="meta">
+                                {{mensagem.descricao}}
+                              </div>
+                                {%if object.mensagem.imagem.all %}
+                                <div class="extra images">
+                                     {%for imagem in  mensagem.imagem.all %}
+                                    <a><img src="{{imagem.imagem}}"></a>
+                                    <!--<a><img src="/images/wireframe/image.png"></a>-->
+                                                        {%endfor%}
+                                    </div>
+                                 {%endif%}
+                            </div>
+                          </div>

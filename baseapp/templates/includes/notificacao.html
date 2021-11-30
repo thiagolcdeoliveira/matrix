@@ -1,0 +1,39 @@
+{% load i18n %}
+
+
+                    <!-- Nav Item - Alerts -->
+                    <li class="nav-item dropdown no-arrow mx-1">
+                        <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-bell fa-fw"></i>
+                            <!-- Counter - Alerts -->
+                            <span class="badge badge-danger badge-counter">{%if notificacoes%} {{notificacoes}}+{%endif%}</span>
+                        </a>
+                        <!-- Dropdown - Alerts -->
+                        <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                             aria-labelledby="alertsDropdown">
+                            <h6 class="notificacao dropdown-header bg-customize ">
+                                Notificações
+                            </h6>
+                            {% for object in object_list%}
+                            <a class="dropdown-item d-flex align-items-center" href="{% url 'notificacao' object.pk %}">
+                                <div class="mr-3">
+                                    <div class="icon-circle bg-customize">
+                                        <i class="fas {{object.tipo_notificacao.icon}} text-white"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span class="font-weight-bold">{{object.tipo_notificacao.descricao}}</span>
+                                    <div class="small text-gray-500">{{object.nome}}</div>
+                                    <div class="small text-gray-500">{{object.data}}</div>
+
+                                </div>
+                            </a>
+                            {%endfor%}
+
+                            <a class="dropdown-item text-center small text-gray-500" href="{%url 'notificacao-meu-list'%}">Show All Alerts</a>
+                        </div>
+                    </li>
+
+
+

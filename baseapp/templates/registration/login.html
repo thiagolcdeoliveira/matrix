@@ -1,0 +1,82 @@
+{% extends 'base_home.html' %}
+{% block body_block %}
+{% load static system%}
+<body class="bg-customize">
+    <div class="container">
+        <!-- Outer Row -->
+        <div class="row justify-content-center">
+            <div class="col-xl-12 col-lg-10 col-md-9">
+                <div class="card o-hidden border-0 shadow-lg my-10">
+                    <div class="card-body p-0">
+                        <!-- Nested Row within Card Body -->
+                         <div class="card-body">
+
+
+
+
+                    <div class="row">
+                            <div class="col-lg-6  col-md-4 col-sm-4 col-xs-6 d-lg-block bg-my-login1-image">
+                                {% settings_login_imagem  as imagem_login %}
+
+                           {%if imagem_login %}
+                            <img class="bg-login" src="{%media%}{%settings_login_imagem%}">
+                            {%else%}
+                            <img class="bg-login" src="{%static 'img/logo1.png' %}">
+                            {%endif%}
+
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="p-5">
+                                    <div class="text-center">
+                                        <h1 class="h4 text-gray-900 mb-4">Login - SGAP</h1>
+                                    </div>
+                                    {% if form.errors %}
+
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                           <h5 class="alert-heading">Usuário ou Senha Incorretos!</h5>
+                                            <strong>Acesso Negado!</strong> verifique se digitou seu usuário e senha
+                                            corretamente.
+                                            <hr>
+                                            <p class="mb-0">Persisteindo o problema entre em contato com o suporte.</p>
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    {% endif %}
+
+                                        <form class="user"   action="{% url 'login'%}" method="POST" >
+                                             {% csrf_token %}
+                                            <div class="form-group">
+                                                <input type="text" name="username" class="form-control form-control-user"
+                                                    id="exampleInputEmail" aria-describedby="emailHelp"
+                                                    placeholder="Email">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="password" class="form-control form-control-user"
+                                                    name="password" id="exampleInputPassword" placeholder="Senha">
+                                            </div>
+                                            <div class="form-group">
+
+                                            </div>
+                                            <button type="submit"  class="btn btn-dark btn-user btn-block">
+                                                Login
+                                            </button>
+
+                                        </form>
+                                    <hr>
+                                    <div class="text-center">
+                                        <a class="small" href="{%url 'password_reset'%}">Esqueceu a Senha?</a>
+                                    </div>
+                                    <div class="text-center">
+                                        <a class="small" href="{% url 'user-add'%}">Criar uma Conta!</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock  %}

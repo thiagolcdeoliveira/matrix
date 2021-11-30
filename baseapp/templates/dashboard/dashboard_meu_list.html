@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+
+{% block title_block %}
+Listar Chamados
+{% endblock title_block %}
+{% load  static system %}
+{% block body_block %}
+
+
+<div class="col-xl-10  col-center-auto justify-content-md-center col-lg-10">
+    <div class="card shadow mb-4">
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-dark">Listar Chamados</h6>
+            <div class="dropdown no-arrow">
+                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                </a>
+
+            </div>
+        </div>
+        <!-- Card Body -->
+        <div class="card-body">
+            <form class="ui form warning" action="{%url 'dashboard-meu-listar' %}" method="get" enctype="multipart/form-data">
+                <div class="form-row">
+                    {% csrf_token %}
+                    <div class="form-group col-md-8">
+                        <label>Descrição</label>
+                        <div class="input-group">
+                        <input class="form-control" name="descricao">
+
+                         <div class="input-group-append">
+                            <select style="border: solid 0.5px #d1d3e2 " class="btn" name="tipo">
+                            <option value="0">Todos</option>
+                            <option value="{{select.codigo}}">Codigo</option>
+                            <option value="{{select.nome}}">Título</option>
+                            <option value="{{select.responsavel}}">Responsavel</option>
+                            <option value="{{select.consulta}}">Consulta</option>
+                            </select>
+                         </div>
+                    </div>
+                        </div>
+
+
+                    <div class="form-group col-md-4">
+                        <label>Satus</label>
+                        <div class="input-group">
+
+                            <select name="status" class="form-control" >
+                        <option value="" selected="">---------</option>
+                        <option value="1" >Aberto</option>
+                        <option value="2" >Fechado</option>
+
+                        </select>
+
+                            <div class="input-group-append">
+                                <button class="btn btn-dark" type="submit">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </form>
+            <div class="table-responsive">
+                <table class="table table-bordered"   cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Título</th>
+                        <th>Tipo</th>
+                        <th>Dono</th>
+                        <th>Status</th>
+                        <th>Ordem</th>
+                        <th>Ações</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {%for object in object_list %}
+                    <tr>
+                        <td>#{{object.id}}</td>
+                        <td>{{object.grafico.nome}}</td>
+                        <td>{{object.tipo}}</td>
+                        <td>{{object.usuario_recebe}}</td>
+                        <td>{% if object.desativado %}Desativado{%else%}Ativo{%endif%}</td>
+                        <td>{{object.ordem}}</td>
+
+
+                        <td class="text-center">
+                            <div class="btn-group" >
+
+
+                    <div class="dropdown no-arrow">
+                        <a class="dropdown-toggle" href="#" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-cogs fa-sm fa-fw text-gray-400"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                             aria-labelledby="dropdownMenuLink">
+                             {% if request.user|has_group:"Administrador"%}
+                            <div class="dropdown-header"><i class="fas fa-fw fa-key"></i> Administrativo</div>
+
+                            <a class="dropdown-item" href="{% url 'chamado-delete' object.pk %}">
+                                <i class="fas fa-fw fa-times "></i>Excluir Gráfico
+                            </a>
+
+                            <div class="dropdown-header"><i class="fas fa-fw fa-wrench"></i> Ações Gerais</div>
+                            <a class="dropdown-item"   href="{% url 'dashboard-detail' object.id  %}"> <i class="fas fa-fw fa-eye"></i> Visualizar </a>
+
+                            {%endif %}
+                            <a class="dropdown-item" href="{% url 'dashboard-update' object.pk %}">
+                                <i class="fas fa-fw fa-edit"></i>Editar Gráfico
+                            </a>
+                            {%if not object.desativado %}
+                            <a class="dropdown-item" href="{% url 'dashboard-desative' object.pk %}">
+                                <i class="fas fa-fw fa-times"></i>Desativar Gráfico
+                            </a>
+                            {%else%}
+                            <a class="dropdown-item" href="{% url 'dashboard-active' object.pk %}">
+                                <i class="fas fa-fw fa-check"></i>Ativar Gráfico
+                            </a>
+                            {%endif%}
+                        </div>
+                    </div>
+
+                    {%endfor%}
+                    </tbody>
+                </table>
+                {%include "includes/paginete_busca1.html"%}
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block js_block %}
+
+
+{% endblock js_block %}
+{%endblock%}

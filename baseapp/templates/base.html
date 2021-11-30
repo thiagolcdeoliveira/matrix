@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static system%}
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>SGC -
+        {% block title_block %}
+        Sistema de Gestão
+        {% endblock title_block %}
+    </title>
+    <link href="{% static 'bootstrap/dist/css/bootstrap.min.css'%}" rel="stylesheet">
+    <link href="{% static 'sbdashboard/vendor/fontawesome-free/css/all.min.css'%}" rel="stylesheet">
+    <link href="{% static 'css/basedashboard.css'%}" rel="stylesheet">
+    <link href="" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+    <link href="{% static 'sbdashboard/css/sb-admin-2.min.css'%}" rel="stylesheet">
+
+
+    <style type="text/css">
+  {% settings_cor  as cor %}
+
+   {%if cor %}
+        .bg-customize{
+            background-color: {{cor}} !important;
+
+        }
+
+    {%else%}
+       .bg-customize{
+            background-color: #5a5c69 !important;
+        }
+            {%endif%}
+
+
+    </style>
+</head>
+
+<body id="page-top">
+<!-- Page Wrapper -->
+<div id="wrapper">
+    <!--  Menu -->
+    {%include 'menu_dashboard.html'%}
+    <!-- End of Menu -->
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+            <!-- Topbar -->
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <!-- Sidebar Toggle (Topbar) -->
+                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <!-- Topbar Search -->
+                <!-- Topbar Navbar -->
+                <ul class="navbar-nav ml-auto">
+                {% show_notification user.id %}
+
+                    <!-- Nav Item - Messages -->
+                    <div class="topbar-divider d-none d-sm-block"></div>
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{user.first_name}} </span>
+                                <img class="img-profile rounded-circle"
+                                     src="{%static 'img/starwars.png'%}">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                 aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="{% url 'user-profile'%}">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Perfil
+                                </a>
+                                <a class="dropdown-item disabled" href="#">
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Configurações
+                                </a>
+                                <a class="dropdown-item" href="{%url 'chamado-meu-list'%}">
+                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Meus Chamados
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{%url 'logout'%}" >
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+                </ul>
+            </nav>
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+                <!-- Content Row -->
+                <div class="row justify-content-md-center">
+                    {% block body_block %}
+                    {% endblock %}
+                </div>
+                <!-- /.container-fluid -->
+            </div>
+        </div>
+        <!-- End of Main Content -->
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; TI Prefeitura Municipal de Araquari 2021</span>
+                </div>
+            </div>
+        </footer>
+        <!-- End of Footer -->
+    </div>
+    <!-- End of Content Wrapper -->
+</div>
+<!-- End of Page Wrapper -->
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+<!-- Logout Modal-->
+<!-- Bootstrap core JavaScript-->
+<script src="{%static 'sbdashboard/vendor/jquery/jquery.min.js'%}"></script>
+<script src="{%static 'sbdashboard/vendor/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+<!-- Core plugin JavaScript-->
+<script src="{%static 'sbdashboard/vendor/jquery-easing/jquery.easing.min.js'%}"></script>
+<!-- Custom scripts for all pages-->
+<script src="{%static 'sbdashboard/js/sb-admin-2.min.js'%}"></script>
+<!-- Page level plugins -->
+<script src="{%static 'sbdashboard/vendor/chart.js/Chart.min.js'%}"></script>
+<!-- Page level custom scripts -->
+<script src="{%static 'js/js.js'%}"></script>
+{% block js_block %}
+{% endblock js_block %}
+
+</body>
+
+</html>

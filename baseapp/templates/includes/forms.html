@@ -1,0 +1,13 @@
+{% load i18n %}
+
+
+{{ message_success }}
+<form class="ui form" action="" method="post" enctype="multipart/form-data">
+
+    {% include 'includes/fields.html' %}
+    <div class="ui two buttons">
+        <a href="{{ request.META.HTTP_REFERER }}" class="ui button fluid ">Voltar</a>
+        <input class="ui button fluid black" type="submit" value="Salvar"/>
+    </div>
+</form>
+

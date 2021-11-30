@@ -1,0 +1,86 @@
+
+{% extends 'base.html' %}
+
+{% block title_block %}
+Lista de Produtos
+{% endblock title_block %}
+{% block body_block %}
+<div class="row espaco">
+
+</div>
+<section class="container ">
+    <div class="row  justify-content-around ">
+<!-- Area Chart -->
+
+<div class="col-xl-10  col-center-auto justify-content-md-center col-lg-10">
+    <div class="card shadow mb-4">
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-dark">Adicionar um Chamado</h6>
+        </div>
+        <!-- Card Body -->
+        <div class="card-body">
+            <form class="ui form warning" action="" method="post" enctype="multipart/form-data"> {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Título do Chamado</label>
+                        {{ form.nome }}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Tipo de Chamado</label>
+                        {{ form.tipo_chamado }}
+                    </div>
+                </div>
+                <div class="form-row">
+
+                    <div class="form-group col-md-4">
+                        <label>Prioridade</label>
+                        {{form.prioridade}}
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Setor</label>
+                        {{form.setor}}
+                    </div>
+
+                    <div class="form-group col-md-4">
+                    <label>Anexos</label>
+                    <div class="input-group">
+                          <div class="custom-file">
+                            <input name="imagem" type="file" class="custom-file-input" id="inputGroupFile04">
+                            <label class="custom-file-label" for="inputGroupFile04">Arquivos</label>
+                          </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+                    <label>Descrição</label>
+                    {{form.descricao}}
+                </div>
+
+                <div class="form-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="notificar" id="gridCheck">
+                        <label class="form-check-label" for="gridCheck">
+                            Deseja receber os emails referentes ao chamado?
+                        </label>
+                    </div>
+                </div>
+
+                <div class="btn-group btn-lg btn-block">
+                    <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-light ">
+                        voltar
+                    </a>
+                    <button type="submit" class="btn btn-dark">Cadastrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+    </div>
+</section>
+
+                {%endblock%}

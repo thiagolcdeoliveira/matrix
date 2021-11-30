@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+
+{% block title_block %}
+Listar Chamados
+{% endblock title_block %}
+{% load  static system %}
+{% block body_block %}
+
+
+<div class="col-xl-10  col-center-auto justify-content-md-center col-lg-10">
+    <div class="card shadow mb-4">
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-dark">Listar Chamados</h6>
+            <div class="dropdown no-arrow">
+                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                     aria-labelledby="dropdownMenuLink">
+                    <div class="dropdown-header">Dropdown Header:</div>
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </div>
+        </div>
+        <!-- Card Body -->
+        <div class="card-body">
+            <form class="ui form warning" action="{%url 'chamado-list' %}" method="get" enctype="multipart/form-data">
+                <div class="form-row">
+                    {% csrf_token %}
+                    <div class="form-group col-md-8">
+                        <label>Descrição</label>
+                        <div class="input-group">
+                        <input class="form-control" name="descricao">
+
+                         <div class="input-group-append">
+                            <select style="border: solid 0.5px #d1d3e2 " class="btn" name="tipo">
+                            <option value="0">Todos</option>
+                            <option value="{{select.codigo}}">Codigo</option>
+                            <option value="{{select.nome}}">Nome</option>
+                            <option value="{{select.responsavel}}">Responsavel</option>
+                            <option value="{{select.descricao}}">Descriçao</option>
+                            </select>
+                         </div>
+                    </div>
+                        </div>
+
+
+                    <div class="form-group col-md-4">
+                        <label>Satus</label>
+                        <div class="input-group">
+
+                            <select name="setor" class="form-control" >
+                        <option value="" selected="">---------</option>
+                        <option value="1" >Ativo</option>
+                        <option value="2" >Desativado</option>
+
+                        </select>
+
+                            <div class="input-group-append">
+                                <button class="btn btn-dark" type="submit">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </form>
+            <div class="table-responsive">
+                <table class="table table-bordered"   cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Nome</th>
+                        <th>Tipo</th>
+                        <th>Responsavel</th>
+                        <th>Ações</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {%for object in object_list %}
+                    <tr>
+                        <td>#{{object.id}}</td>
+                        <td>{{object.nome}}</td>
+                        <td>{{object.tipo_propriedade}}</td>
+                        <td>{{object.usuario}}</td>
+
+
+                        <td class="text-center">
+                            <div class="btn-group" >
+
+
+            <div class="dropdown no-arrow">
+                <a class="dropdown-toggle" href="#" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-cogs fa-sm fa-fw text-gray-400"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                     aria-labelledby="dropdownMenuLink">
+
+                    {% if request.user|has_group:"Administrador"%}
+
+                    <div class="dropdown-header"><i class="fas fa-fw fa-wrench"></i> Ações Gerais</div>
+                    <a class="dropdown-item"   href="{% url 'propriedade-detail' object.id %}"> <i class="fas fa-fw fa-eye"></i> Visualizar </a>
+<!--                    <a class="dropdown-item"   href="{% url 'propriedade-history'  %}"> <i class="fas fa-fw fa-history"></i> Historico </a>-->
+                    <a class="dropdown-item"   href="{% url 'chamado-propriedade-history'  object.id %}"> <i class="fas fa-fw fa-history"></i> Historico </a>
+
+                    {%endif %}
+                    {%if not object.desativado %}
+                    <a class="dropdown-item" href="{#{% url 'chamado-fechar' object.pk %}#}">
+                        <i class="fas fa-fw fa-times"></i>Desativar
+                    </a>
+                    {%else%}
+                    <a class="dropdown-item" href="{#{% url 'chamado-abrir' object.pk %}#}">
+                        <i class="fas fa-fw fa-edit"></i>Ativar
+                    </a>
+                    {%endif%}
+                </div>
+            </div>
+
+                        </td>
+                    </tr>
+                    {%endfor%}
+                    </tbody>
+                </table>
+                {%include "includes/paginete_busca1.html"%}
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block js_block %}
+
+
+{% endblock js_block %}
+{%endblock%}

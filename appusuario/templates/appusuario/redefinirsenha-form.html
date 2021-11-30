@@ -1,0 +1,53 @@
+{% extends "base_home.html" %}
+{% load static system %}
+{% block title %}Redefenir Senha{% endblock %}
+
+{% block body_block %}
+
+
+<body class="bg-dark">
+
+<div class="container">
+
+    <div class="card o-hidden border-0 shadow-lg my-6">
+        <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+                <div class="col-lg-5 d-none d-lg-block bg-my-register1-image">
+                    {% settings_cadastro_imagem  as imagem_cadastro %}
+
+                           {%if imagem_cadastro %}
+                            <img class="bg-login" src="{%media%}{{imagem_cadastro}}">
+                            {%else%}
+                            <img class="bg-login" src="{%static 'img/logo1.png' %}">
+                            {%endif%}
+
+                </div>
+                <div class="col-lg-7">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h1 class="h4 text-gray-900 mb-4">Redefinir Senha!</h1>
+                        </div>
+
+
+                <form method="post" class="ui form">
+                    {% csrf_token %}
+                    <div class="field">
+                        <label><i class="mail icon"></i>E-mail: </label>
+                        {#                        <label> {{ form.email.help_text }}</label>#}
+                        {{ form.email }}
+                        <div class="header">Insira seu e-mail para recuperação da senha.</div>
+
+                    </div>
+                    <div class="btn-group btn-lg btn-block">
+<!--                                    <div class="btn-group btn-lg btn-block">-->
+                        <a class="btn btn-light border" href="{{ request.META.HTTP_REFERER }}">Voltar</a>
+
+                        <input class="btn btn-dark " name="submit" type="submit" value="Enviar"/>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+
+{% endblock %}

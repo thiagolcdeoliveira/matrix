@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title_block %}
+Home
+{% endblock title_block %}
+
+{% load  static   %}
+
+{% block body_block %}
+
+<script src="{% static 'js/space.js'%}"> </script>
+
+<div class="row espaco">
+
+</div>
+<section class="container ">
+    <div class="row  justify-content-around ">
+<!-- Area Chart -->
+
+<div class="col-xl-12  col-center-auto justify-content-md-center col-lg-12">
+    <div class="card shadow mb-4">
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-dark">Página Não Encontrada Erro 404</h6>
+        </div>
+        <!-- Card Body -->
+        <div class="card-body text-center">
+<!--            <canvas id="space-invaders"/>-->
+                        <img class="img-responsive text-center" src="{%static 'img/negado2.png'%}">
+
+        </div>
+    </div>
+</div>
+    </div>
+</section>
+
+
+{% endblock %}

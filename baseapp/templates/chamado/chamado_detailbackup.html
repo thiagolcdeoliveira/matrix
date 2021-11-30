@@ -1,0 +1,85 @@
+
+{% extends 'base.html' %}
+
+{% block title_block %}
+Lista de Produtos
+{% endblock title_block %}
+{% load  staticfiles %}
+{% block body_block %}
+<section class="ui ten wide column">
+
+    <div class="ui segment"> <div class="header"> <a class="ui ribbon black label"><h3>Detalhes do Chamado</h3></a></div>
+        <!--{#{%include  "includes/message.html"%}#}-->
+        <!--{%include  "includes/forms.html"%}-->
+
+        <!--Descrição: {{object.descricao}}-->
+        <!--Data da Abertura:{{object.data_inicio}}-->
+        <!--Data do Encerramento: {{object.data_fim}}-->
+        <!--Status: {{object.status}}-->
+        <div class="ui right floated header">
+               <!--<a class="ui button red attached" href="{% url 'chamado-update' object.pk %}">-->
+                   <!--<i class="ui icon edit"></i>Editar Cha</a>-->
+                {%if not object.status %}
+                   <a class="ui button red attached" href="{% url 'chamado-fechar' object.pk %}">
+                       <i class="ui icon close"></i>Fechar Chamado
+                   </a>
+                {%else%}
+                    <a class="ui button green attached" href="{% url 'chamado-abrir' object.pk %}">
+                       <i class="ui icon close"></i>Reabrir Chamado
+                   </a>
+                {%endif%}
+        </div>
+        <div class="ui  list">
+            <div class="item">
+                <div class="content">
+                    <div class="header"> Número do Chamado:  #{{object.id}} </div>
+
+                </div>
+            </div>
+            <div class="item">
+
+                <div class="content">
+                    <div class="header">Data da Abertura: {{object.data_inicio}}</div>
+
+                </div>
+            </div>
+            <div class="item">
+
+                <div class="content">
+                    <div class="header"> Data do Encerramento: {{object.data_fim}}</div>
+
+                </div>
+            </div>
+            <div class="item">
+                <div class="content">
+                    <div class="header">  Status: {{object.status}} </div>
+
+                </div>
+            </div>
+            <div class="item">
+
+                <div class="content">
+                    <div class="header"> Descrição:  {{object.descricao}} </div>
+
+                </div>
+            </div> <div class="item">
+            <div class="content">
+                <div class="header"> Produtos Utilizados  </div>
+                {% for produto in object.produto_utlizado.all%}
+                {{produto.nome}}
+                {{produto.patrimonio}}
+                {%endfor%}
+            </div>
+        </div>
+        </div>
+        <!--<div class="ui  divider "></div>-->
+
+        <!--<div class="ui  two fluid buttons ">-->
+        <!--<a class="ui button gray" href=""></a>-->
+        <!--<a class="ui button black"href=""></a>-->
+        <!--</div>-->
+
+
+    </div>
+</section>
+{%endblock%}

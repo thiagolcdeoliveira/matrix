@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css_appatividade %}
+    <link rel="stylesheet" type="text/css" href='{% static "css/auth.css" %}'>
+{% endblock %}
+{% block title %}Listar Tipos de Atividade{% endblock %}
+{% block body_block %}
+    {% for obj in object_list %}{{ obj }}{% endfor %}
+
+    <a href="#"
+       onclick="window.open('/atividade/cadastrar','Pagina', 'STATUS=NO, TOOLBAR=NO, LOCATION=NO, DIRECTORIES=NO, RESISABLE=NO, SCROLLBARS=YES, TOP=10, LEFT=10, WIDTH=770, HEIGHT=400');">Clique
+        para abrir a janela POP-up</a>
+{% endblock %}

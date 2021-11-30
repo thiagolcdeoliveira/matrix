@@ -1,0 +1,89 @@
+{%load static%}
+
+
+    <!-- Area Chart -->
+    {%if object.tipo.id ==  2 or object.tipo.id == 4   or object.tipo.id == 5    or object.tipo.id == 6 %}
+        <div class="  grafico-card mb-4">
+
+            <div class="card-body">
+                <div class="chart-area">
+                    <div class="chartjs-size-monitor">
+                        <div class="chartjs-size-monitor-expand">
+                            <div class=""></div>
+                        </div>
+                        <div class="chartjs-size-monitor-shrink">
+                            <div class=""></div>
+                        </div>
+                    </div>
+                    <canvas id="myChart_{{object.id}}" style="display: block; width: 389px; height: 320px;"
+                            width="389"
+                            height="320" class="chartjs-render-monitor"></canvas>
+                </div>
+
+            </div>
+        </div>
+    {%elif object.tipo.id == 1%}
+        <div class=" grafico-card mb-4">
+
+            <div class="card-body">
+                <div class="contador" id="contador_{{object.id}}">
+
+                </div>
+            </div>
+
+
+        </div>
+
+
+    {%elif object.tipo.id == 3%}
+
+            <div class=" tabela-card mb-4">
+                <div class="tabela" id="tabela_{{object.id}}">
+
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+    {%endif%}
+
+
+
+
+
+{% block js_block %}
+<script src="{%static 'js/jquery.min.js'%}"></script>
+<script src="{%static 'js/js_dashboard.js'%}"></script>
+
+
+<script>
+  setTimeout(dashboard(), 3000);
+  function dashboard(){
+             {%if object.tipo.id == 2  or object.tipo.id == 4   or object.tipo.id == 5    or object.tipo.id == 6 %}
+
+              {%if object.tipo.descricao == 'area'%}
+                 solicitar({{object.id}});
+                 {%endif%}
+                 {%if object.tipo.descricao == 'bar'%}
+                 solicitarBar({{object.id}});
+                 {%endif%}
+                  {%if object.tipo.descricao == 'pie'%}
+                 solicitarPie({{object.id}});
+                 {%endif%}
+             {%elif object.tipo.id == 3%}
+                 solicitarTabela({{object.id}});
+             {%elif object.tipo.id == 1%}
+                 solicitarContador({{object.id}});
+
+             {%endif%}
+  }
+
+
+
+</script>
+{%endblock%}

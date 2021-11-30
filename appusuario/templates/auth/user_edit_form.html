@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css_appusuario %}
+    <link rel="stylesheet" type="text/css" href='{% static "css/appusuario.css" %}'>
+    <link rel="stylesheet" type="text/css" href='{% static "css/auth.css" %}'>
+{% endblock %}
+{% block title %}Editar Perfil{% endblock %}
+{% block body_block %}
+    <!--<div class="ui basic segment centered stackable grid">-->
+        <!--<div class="ui segment eight wide column">-->
+        <div class="ui  ten wide column">
+                 <div class="ui segment"> <div class="header"> <a class="ui ribbon red label"><h3>Editar Perfil</h3></a></div>
+
+            <!--<h1 class="ui header">Editar Perfil</h1>-->
+            {% if form.errors %}
+                <p class="ui error message">
+                    <i class="close icon"></i>
+                    <span class="header">
+                        Verifique os erros abaixo!
+                    </span>
+                </p>
+            {% endif %}
+            <form novalidate class="ui large form" action="{% url 'user-update' %}" method="post" id="">
+                {% csrf_token %}
+                <div class="field">
+                    <label><i class="user icon"></i>{{ form.first_name.label }}:</label>
+                    {{ form.first_name }}
+                    {% if form.first_name.errors %}
+                        <span class="ui pointing red basic label">
+                                {{ form.first_name.errors }}
+                        </span>
+                    {% endif %}
+                </div>
+                <div class="field">
+                    <label><i class="user icon"></i>{{ form.last_name.label }}:</label>
+                    {{ form.last_name }}
+                    {% if form.last_name.errors %}
+                        <span class="ui pointing red basic label">
+                                {{ form.last_name.errors }}
+                        </span>
+                    {% endif %}
+                </div>
+                <div class="field">
+                    <label><i class="mail icon"></i>E-mail:</label>
+                    <div class="ui input disable">
+                        <input value="{{ email }}" disabled/>
+                    </div>
+
+                </div>
+                <div class="field">
+                    <label><i class="lock icon"></i>{{ form.password.label }}:</label>
+                    {{ form.password }}
+                    {% if form.password.errors %}
+                        <span class="ui pointing red basic label">
+                                {{ form.password.errors }}
+                        </span>
+                    {% endif %}
+                </div>
+                <div class="field">
+                    <label><i class="lock icon"></i>Confirme sua senha:</label>
+                    {{ form.password_checker }}
+                    {% if form.password_checker.errors %}
+                        <span class="ui pointing red basic label">
+                                {{ form.password_checker.errors }}
+                        </span>
+                    {% endif %}
+                </div>
+                <div class="botaos">
+                    <a href="{{ request.META.HTTP_REFERER }}" class="ui button empilha red ">Voltar</a>
+
+                    <button class="ui button right floated e-green-button empilha green" type="submit">
+                        Salvar
+                    </button>
+
+                    <a class="ui button right floated e-red-button empilha blue" href="/">
+                        Cancelar
+                    </a>
+                </div>
+            </form>
+                            </div>
+
+        <!--</div>-->
+    <!--</div>-->
+
+{% endblock %}

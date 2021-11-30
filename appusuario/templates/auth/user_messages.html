@@ -1,0 +1,50 @@
+{% extends 'base_home.html' %}
+{% load static  system%}
+
+{% block title %}Cadastrado com sucesso{% endblock %}
+
+{% block active_cadastro %}active{% endblock %}
+{% block body_block %}
+<body class="bg-customize">
+
+<div class="container">
+
+    <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+                <div class="col-lg-5 d-none d-lg-block bg1-my-register-image">
+
+                       {% settings_cadastro_imagem  as imagem_cadastro %}
+
+                           {%if imagem_cadastro %}
+                            <img class="bg-login" src="{%media%}{{imagem_cadastro}}">
+                            {%else%}
+                            <img class="bg-login" src="{%static 'img/logo1.png' %}">
+                            {%endif%}
+                </div>
+                <div class="col-lg-7">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h1 class="h4 text-gray-900 mb-4"> Cadastro efetuado com sucesso!!</h1>
+                        </div>
+                        <div class="content-wrap">
+                            <p>Em instantes você <b>receberá um e-mail</b> com instruções para <b>ativar sua conta</b>.
+                           Por favor acesse a url enviada no seu e-mail para o seu primeiro acesso ao sistema.</p>
+                            <p>Enquanto aguada o e-mail ser enviado, você pode visualizar os eventos do sistema.</p>
+                        </div>
+                        <a  class="btn bg-customize btn-user btn-block " href="{% url 'home' %}" >Clique aqui para voltar à página inicial.</a>
+
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+
+{% endblock %}

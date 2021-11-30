@@ -1,0 +1,99 @@
+<script>
+function adicionarItem(id,username,campo_alterar){
+ $("#modal-object").modal("hide");
+ var str = campo_alterar;
+ var res = str.replace("id_", "");
+
+ /*$('#'+campo_alterar).append('<input checked name="'+res+'" type="checkbox" value =' + id + ' />');
+ $('#'+campo_alterar).val(id).attr('checked','checked');*/
+  console.log(campo_alterar);
+
+ $('#'+campo_alterar+"_table").removeAttr('hidden');
+
+ $('#'+campo_alterar+"_table").append('<tr><td> #'+ id + '</td><td>' + username + '</td><td><input checked name="'+res+'" type="checkbox" value =' + id + ' /></td></tr>');
+  console.log(campo_alterar);
+
+
+}
+</script>
+
+
+<i class="close icon"></i>
+
+
+<div class="modal-dialog modal-lg text-center ">
+    <div class="modal-content ">
+        <div class="modal-header">
+            <h5 class="modal-title" > Pesquise um Solicitante</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body container-fluid ">
+
+
+            <form novalidate method="post" action="{{ url }}" class=" js-object-create-form ui form {{ classe_css }}"
+                  id="form_ajax" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="input-group">
+
+                    <input value="{{descricao}}" class="form-control" placeholder="Pesquisar"
+                           name="descricao" id="buscar-servidor">
+                    <div class="ui action input ">
+                        <div class="input-group-append">
+                            <button form="form_ajax" id="submit_json" value="Salvar"
+                                    class="btn btn-dark js-create-object ">
+                                <i class="ui tiny red icon search fas fa-search fa-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </form>
+
+
+{%if object %}
+
+            <table class=" table">
+                <thead>
+                <tr>
+
+
+                    <th>Cód</th>
+                    <th>Nome</th>
+                    <th>Ação</th>
+                </tr>
+                </thead>
+                <tbody>
+
+
+
+                {%for objec in object %}
+                <tr>
+                    <td>
+                       #{{objec.pk}}
+                    </td>
+                    <td>{{objec.nome}}</td>
+                    <td>
+                        <button class="btn btn-dark"
+                                onclick="adicionarItem({{objec.id}},'{{objec.nome}}','{{campo_alterar}}')">
+                            Inserir
+                        </button>
+                    </td>
+
+                </tr>
+                {%endfor %}
+
+                </tbody>
+            </table>
+
+
+{%endif %}
+
+    </div>
+
+</div>
+</div>
+

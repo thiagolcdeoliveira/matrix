@@ -1,0 +1,49 @@
+
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+
+        <li class="page-item ">
+            <a class="page-link" href="?{{ request.GET.urlencode }}&page={{ page_obj.previous_page_number }}"
+               class="ui button e-blue-purple-button">&laquo; Previous </a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1">Previous</a>
+        </li>
+
+        {% endif %}
+        {% if page_obj.number|add:'-2' > 1 %}
+        <li class="page-item">
+           <a class="page-link" href="?{{ request.GET.urlencode }}&page={{ page_obj.number|add:'-5'}}"
+           class="ui button e-blue-purple-button">&hellip;</a>
+        </li>
+        {% endif %}
+        {% for i in page_obj.paginator.page_range %}
+        {% if page_obj.number == i %}
+        <li class="page-item"><a class="page-link" href="#">{{ i }} </a></li>
+        {% elif i > page_obj.number|add:'-3' and i < page_obj.number|add:'3' %}
+
+        <li class="page-item"> <a class="page-link" href="?{{ request.GET.urlencode }}&page={{ i }}">{{ i }}</a></li>
+        {% endif %}
+        {% endfor %}
+        {% if page_obj.paginator.num_pages > page_obj.number|add:'2' %}
+        <li class="page-item">
+            <a class="page-link"href="?{{ request.GET.urlencode }}&page={{ page_obj.number|add:'5'}}" >&hellip;</a></li>
+        </li>
+        {% endif %}
+        {% if page_obj.has_next %}
+        <li class="page-item">
+
+            <a href="?{{ request.GET.urlencode }}&page={{ page_obj.next_page_number }}"
+           class="page-link ">Next &raquo;</a>
+        </li>
+
+        {% else %}
+         <li class="page-item disabled">
+            <a class="page-link disabled"><span>Next &raquo;</span></a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>

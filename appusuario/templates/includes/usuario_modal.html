@@ -1,0 +1,46 @@
+{% load static %}
+<script src='{% static "css/modal.css" %}'></script>
+<section class="ui modal">
+    <i class="close icon"></i>
+    <h1 class="ui header">
+        Cadastrar Autor
+    </h1>
+    <div class="ui description basic segment">
+        <form class="ui form basic segment" action="{% url 'task-add' %}" method="post" id="form_usuario">
+            {% csrf_token %}
+            <p class="field">
+                <label><i class="user icon"></i> {{ user_form.first_name.label }}:</label>
+                {{ user_form.first_name }}
+                 {% if user_form.first_name.help_text %}
+                     <span class="ui pointing label">Ajuda: {{ user_form.first_name.help_text }}</span>
+                 {% endif %}
+            </p>
+
+            <p class="field">
+                <label><i class="user icon"></i> {{ user_form.last_name.label }}:</label>
+                {{ user_form.last_name }}
+                {% if user_form.last_name.help_text %}
+                     <span class="ui pointing label">Ajuda: {{ user_form.last_name.help_text }}</span>
+                {% endif %}
+            </p>
+
+            <p class="field" id="campo-email">
+                <label><i class="mail icon"></i> {{ user_form.email.label }}:</label>
+                {{ user_form.email }}
+                {% if user_form.email.help_text %}
+                     <span class="ui pointing label">Ajuda: {{ user_form.email.help_text }}</span>
+                {% endif %}
+            </p>
+        </form>
+    </div>
+    <div class="actions">
+        <button class="ui left floated cancel button e-red-button">
+            Cancelar
+        </button>
+        <button class="ui button e-green-button" id="salvar_autor" type="submit">
+            Salvar
+        </button>
+    </div>
+</section>
+
+<script src='{% static "js/usuario_modal.js" %}'></script>

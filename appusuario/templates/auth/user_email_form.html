@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css_appusuario %}
+    <link rel="stylesheet" type="text/css" href='{% static "css/appusuario.css" %}'>
+    <link rel="stylesheet" type="text/css" href='{% static "css/auth.css" %}'>
+{% endblock %}
+{% block title %}Cadastre-se{% endblock %}
+{% block active_cadastro %}active{% endblock %}
+{% block body_block %}
+    <div class="ui basic segment centered stackable grid">
+        <div class="ui segment eight wide column">
+            <h1 class="ui header">Adicione um email a sua conta</h1>
+            {% if form.errors %}
+                <p class="ui error message">
+                    <i class="close icon"></i>
+                    <span class="header">
+                        Verifique os erros abaixo!
+                    </span>
+                </p>
+            {% endif %}
+            <form novalidate class="ui large form" action="{% url 'user-email-add' %}" method="post" id="">
+                {% csrf_token %}
+
+                <div class="field">
+                    <label><i class="mail icon"></i>E-mail:</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <span class="ui pointing red basic label">
+                                {{ form.email.errors }}
+                        </span>
+                    {% endif %}
+                </div>
+
+                <button class="ui button right floated e-green-button" type="submit">
+                    Salvar
+                </button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

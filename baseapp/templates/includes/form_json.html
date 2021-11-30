@@ -1,0 +1,30 @@
+<i class="close icon"></i>
+
+
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel"> {%if editado %}Editar {%else%}Adicionar {{ titulo }}
+                {%endif%}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form novalidate method="post" action="{{ url }}" class="js-object-create-form  form {{ classe_css }}"
+                  id="form_ajax" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% include 'includes/fields.html' %}
+
+        </div>
+        <div class="btn-group block modal-footer">
+            <button class="btn btn-light">Cancelar</button>
+            <button form="form_ajax" id="submit_json" class="btn btn-dark" value="Salvar">Salvar</button>
+        </div>
+    </div>
+    <div class="content">
+        <div id="load-modal" class="ui  inverted dimmer">
+            <div class="ui text loader">Enviando</div>
+        </div>
+    </div>
+</div>

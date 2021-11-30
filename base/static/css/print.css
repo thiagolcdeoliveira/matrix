@@ -1,0 +1,29 @@
+
+/*CSS para impressão*/
+/* print.css */
+* {
+  background-image: none !important;
+  background-color: none !important;
+}
+
+.container-fluid{
+  background-color: none !important;
+
+}
+#content-wrapper {
+background-color: #ffffff !important;
+}
+img, svg {
+  display: none !important;
+}
+
+img.print, svg.print {
+  display: block;
+  max-width: 100%;
+}
+.sidebar {
+    width: 0rem!important;
+}
+.sidebar > a {
+    width: 0rem!important;
+}

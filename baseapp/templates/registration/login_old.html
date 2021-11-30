@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+      {%load static%}
+    <link href="{% static 'css/login.css'%}" rel="stylesheet">
+
+    <title>SGC -  Login</title>
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'bootstrap/dist/css/bootstrap.min.css'%}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="floating-labels.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <form class="form-signin" action="." method="POST">
+      <div class="text-center mb-4">
+        <img class="mb-4" src="{% static 'img/logo.png'%}" alt="" width="52%" height="52%">
+        <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+      </div>
+      {% csrf_token %}
+      <div class="form-label-group">
+        <input type="text" id="inputEmail" class="form-control" name="username" placeholder="Email address" required autofocus>
+        <label for="inputEmail">Usuário</label>
+      </div>
+
+      <div class="form-label-group">
+        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
+        <label for="inputPassword">Senha</label>
+      </div>
+
+
+
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+      <p class="mt-5 mb-3 text-muted text-center">&copy; 2021</p>
+    </form>
+  </body>
+</html>

@@ -1,0 +1,150 @@
+{% load   static system %}
+
+<!-- Sidebar -->
+<ul class=" bg-customize  navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
+    {% settings_customize as customize %}
+
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+        <div class="sidebar-brand-icon rotate-n-15">
+
+            {%if customize %}
+            <img src="{% media %}{{customize.logo_baixa}}" alt="" width="100%" height="100%">
+
+            {%else%}
+            <img src="{% static 'img/logo1.png'%}" alt="" width="100%" height="100%">
+
+            {%endif%}
+        </div>
+        <div class="sidebar-brand-text mx-5">
+            {%if customize %}
+            {{customize.nome}}
+
+            {%else%}
+            base
+
+            {%endif%}
+        </div>
+    </a>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item active">
+        <a class="nav-link" href="{%url 'dashboard'%}">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+       <i class="fas fa-fw fa-envelope-open"></i>  Chamados
+    </div>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'chamado-admin-add'%}">
+            <i class="fas fa-fw fa-plus"></i>
+            <span> Adicionar Chamado</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'chamado-list'%}">
+            <i class="fas fa-fw fa-list"></i>
+            <span> Listar Chamado</span></a>
+    </li>
+        <hr class="sidebar-divider d-none d-md-block">
+
+    <div class="sidebar-heading collapse-my-menu">
+        <a  data-toggle="collapse" data-target="#menugrafico">     <i class="fa  fa-chart-bar"></i>   Gráficos </a>
+    </div>
+    <nav class="collapse" id="menugrafico">
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'grafico-add'%}">
+            <i class="fas fa-fw fa-plus"></i>
+            <span> Adicionar Gráfico</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'dashboard-meu-listar'%}">
+            <i class="fas fa-fw fa-list"></i>
+            <span> Listar Meus Gráficos</span></a>
+    </li>
+     <li class="nav-item">
+        <a class="nav-link" href="{% url 'dashboard-add'%}">
+            <i class="fas fa-fw fa-list"></i>
+            <span> Adiocinar Grafico Meus Gráficos</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+        </nav>
+       <div class="sidebar-heading collapse-my-menu">
+           <a  data-toggle="collapse" data-target="#menupropriedade">    <i class="fa  fa-chart-bar"></i>   Propriedade </a>
+    </div>
+
+    <nav class="collapse" id="menupropriedade">
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'propriedade-add'%}">
+            <i class="fas fa-fw fa-plus"></i>
+            <span> Adicionar Propriedade</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'propriedade-listar'%}">
+            <i class="fas fa-fw fa-list"></i>
+            <span> Listar Propriedades</span></a>
+    </li>
+
+    <!-- Divider -->
+
+    <hr class="sidebar-divider d-none d-md-block">
+</nav>
+       <div class="sidebar-heading collapse-my-menu">
+       <a  data-toggle="collapse" data-target="#menuprodutos"><i class="fa  fa-chart-bar"></i>  Produtos</a>
+    </div>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <nav  id="menuprodutos"class="collapse">
+
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'grafico-add'%}">
+            <i class="fas fa-fw fa-plus"></i>
+            <span> Adicionar Produto</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'dashboard-meu-listar'%}">
+            <i class="fas fa-fw fa-list"></i>
+            <span> Listar Produtos</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+    </nav>
+    <div class="sidebar-heading collapse-my-menu">
+           <a  data-toggle="collapse" data-target="#menuequipamentos">  <i class="fa  fa-chart-bar"></i>   Equipamento </a>
+    </div>
+  <nav id="menuequipamentos"class="collapse">
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'grafico-add'%}">
+            <i class="fas fa-fw fa-plus"></i>
+            <span> Adicionar Equipamento</span></a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{% url 'dashboard-meu-listar'%}">
+            <i class="fas fa-fw fa-list"></i>
+            <span> Listar Equipamentos </span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+  </nav>
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline circulo">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+    </div>
+
+
+</ul>

@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+
+{% block title_block %}
+Dashboard
+{% endblock title_block %}
+{% load  static   %}
+
+{% block body_block %}
+
+
+<!-- Card Body -->
+
+<div class="col-xl-10  col-center-auto justify-content-md-center col-lg-10">
+    <div class="row">
+{%if dashboard%}
+    {%for object in dashboard%}
+    <!-- Area Chart -->
+    {%if object.tipo.id ==  2 or object.tipo.id == 4   or object.tipo.id == 5    or object.tipo.id == 6 %}
+    <div class="col-md-{{object.tamanho.descricao}}">
+        <div class=" card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-dark"><i class="fa fa-chart-bar "></i> {{object.grafico.nome|upper}}</h6>
+            </div>
+            <div class="card-body">
+                <div class="chart-area">
+                    <div class="chartjs-size-monitor">
+                        <div class="chartjs-size-monitor-expand">
+                            <div class=""></div>
+                        </div>
+                        <div class="chartjs-size-monitor-shrink">
+                            <div class=""></div>
+                        </div>
+                    </div>
+                    <canvas id="myChart_{{object.id}}" style="display: block; width: 389px; height: 320px;"
+                            width="389"
+                            height="320" class="chartjs-render-monitor"></canvas>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    {%elif object.tipo.id == 1%}
+    <div class="col-md-{{object.tamanho.descricao}}">
+        <div class=" card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 id="contador_titulo_{{object.id}}_" class="m-0 font-weight-bold text-dark">
+                   <i class="fa fa-list "></i>  {{object.grafico.nome|upper}}</h6>
+            </div>
+            <div class="card-body">
+                <div class="contador" id="contador_{{object.id}}">
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+    {%elif object.tipo.id == 3%}
+    <div class="col-md-{{object.tamanho.descricao}}">
+        <div class=" card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 id="tabela_titulo_{{object.id}}_" class="m-0 font-weight-bold text-dark">
+                     <i class="fa fa-table "></i>
+                    {{object.grafico.nome|upper}}</h6>
+            </div>
+            <div class="card-body">
+                <div class="tabela" id="tabela_{{object.id}}">
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+
+
+    {%endif%}
+
+
+
+    {%endfor%}
+        {%else%}
+<div class="col-md-12">
+        <div class=" card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-dark"><i class="fa fa-chart-bar "></i> Dashboard </h6>
+            </div>
+            <div class="card-body">
+
+               <p> Você Não Possui um Dashboard Associado</p>
+               <p><i class="fa fa-chart-pie"></i><a href="{% url 'dashboard-add'%}">Adicione Gráficos e Contadores ao seu Dashboard </a></p>
+            </div>
+        </div>
+    </div>
+
+        {%endif%}
+</div>
+</div>
+
+{% block js_block %}
+<script src="{%static 'js/jquery.min.js'%}"></script>
+<script src="{%static 'js/js_dashboard.js'%}"></script>
+
+
+<script type="text/javascript">
+   setInterval( dashboard(), 3000);
+
+   setInterval(function(){  dashboard(); }, 15000);
+  function dashboard(){
+         {%for object in dashboard%}
+             {%if object.tipo.id == 2  or object.tipo.id == 4   or object.tipo.id == 5    or object.tipo.id == 6 %}
+
+              {%if object.tipo.descricao == 'area'%}
+                 solicitar({{object.id}});
+                 {%endif%}
+                 {%if object.tipo.descricao == 'bar'%}
+                 solicitarBar({{object.id}});
+                 {%endif%}
+                  {%if object.tipo.descricao == 'pie'%}
+                 solicitarPie({{object.id}});
+                 {%endif%}
+             {%elif object.tipo.id == 3%}
+                 solicitarTabela({{object.id}});
+             {%elif object.tipo.id == 1%}
+                 solicitarContador({{object.id}});
+
+             {%endif%}
+         {%endfor%}
+
+  }
+
+
+
+</script>
+
+{% endblock js_block %}
+{% endblock %}

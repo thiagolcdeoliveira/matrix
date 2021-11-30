@@ -1,0 +1,55 @@
+{% extends "base_home.html" %}
+{% load static system %}
+{% block title %}Redefenir Senha{% endblock %}
+
+{% block body_block %}
+
+<body class="bg-dark">
+
+<div class="container">
+
+    <div class="card o-hidden border-0 shadow-lg my-6">
+        <div class="card-body p-0">
+
+
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+                <div class="col-lg-5 d-none d-lg-block bg-my-register1-image">
+                    {% settings_cadastro_imagem as imagem_cadastro %}
+
+                    {%if imagem_cadastro %}
+                    <img class="bg-login" src="{%media%}{{imagem_cadastro}}">
+                    {%else%}
+                    <img class="bg-login" src="{%static 'img/logo1.png' %}">
+                    {%endif%}
+
+                </div>
+                <div class="col-lg-7">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h1 class="h4 text-gray-900 mb-4">Redefinir Senha</h1>
+                        </div>
+
+                            <div class="ui positive icon message">
+                     <i class="close icon"></i>
+                    <i class="check circle icon"></i>
+                    <span class="content">
+                        <div class="header">
+                            Senha redefinida com sucesso!
+                        </div>
+                        <p>Sua senha foi redefinida com sucesso! <a href="/">Clique aqui para voltar à página inicial.</a></p>
+                        <p><a class="ui button" href="{% url 'login' %}"> <i class="sign in icon"></i> Faça seu login aqui </a></p>
+                    </span>
+                </div>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+{% endblock %}

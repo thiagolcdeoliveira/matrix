@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static system %}
+{% block css_auth %}
+{% endblock %}
+{% block css_appusuario %}
+{% endblock %}
+{% block title %}Perfil do Usuário{% endblock %}
+{% block body_block %}
+
+
+<div class="col-xl-10  col-center-auto justify-content-md-center col-lg-10"> {% if message_sucess %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <h5 class="alert-heading"> Atualizado com sucesso!</h5>
+        <span> Seu perfil foi atualizado com sucesso.</span>
+        <hr>
+
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %}
+    <div class="card shadow mb-4">
+
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h5 class="m-0 font-weight-bold "><i class="fas fa-user "></i> Perfil do usuário</h5>
+            <div class="dropdown no-arrow">
+                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                     aria-labelledby="dropdownMenuLink">
+                    <div class="dropdown-header"><i class="fas fa-fw fa-wrench"></i> Ações Gerais</div>
+
+                    <a class="dropdown-item" href="{% url 'user-profile-edit' %}">
+                        <i class="fas fa-fw fa-edit"></i> Editar Perfil</a>
+
+
+                    <a href="{% url 'password_change' %}"
+                       class="dropdown-item"> <i class="fas fa-fw fa-edit"></i> Alterar
+                        Senha</a>
+                </div>
+            </div>
+
+        </div>
+        <!-- Card Body -->
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4 col-sm-4 col-xs-6">
+                    {%if complemento.imagem %}
+                    <img class="bg-user-perfil" src="{%media%}{{complemento.imagem}}">
+                    {%else%}
+                    <img class="bg-user-perfil" src="{%static 'img/logo.png' %}">
+                    {%endif%}
+                </div>
+                <div class="col-md-8 col-sm-8 col-xs-6">
+                    <div class="label"><strong>Nome Completo</strong></div>
+                    <p class="header">{{ object.first_name|title }} {{ object.last_name|title }}</p>
+                    <hr>
+                    <div class="label"><strong>E-mail</strong></div>
+                    <p class=" header">{{ object.email }}</p>
+                    <hr>
+                    <div class="label"><strong>Telefone</strong></div>
+                    <p class=" header">{{ complemento.telefone }}</p>
+                    <hr>
+                    <div class="label"><strong>Setor</strong></div>
+                    <p class=" header">{{ complemento.setor  }}</p>
+                    <hr>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

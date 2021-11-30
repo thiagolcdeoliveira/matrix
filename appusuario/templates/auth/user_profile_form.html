@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Editar Perfil{% endblock %}
+{% block body_block %}
+
+
+<div class="col-xl-10  col-center-auto justify-content-md-center col-lg-10">
+    {% if message %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <h5 class="alert-heading"> Atualizado com sucesso!</h5>
+        <span> Seu perfil foi atualizado com sucesso.</span>
+        <hr>
+
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %}
+    {% if form.errors %}
+
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <h5 class="alert-heading"> Erro!</h5>
+        <span> Verifique os erros abaixo!</span>
+        <hr>
+
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    {% endif %}
+       {% if formComplemento.errors %}
+
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <h5 class="alert-heading"> Erro!</h5>
+        <span> Verifique os erros abaixo!</span>
+        <hr>
+{{formComplemento.errors}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    {% endif %}
+    <div class="card shadow mb-4">
+
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h5 class="m-0 font-weight-bold "><i class="fas fa-edit "></i> Editar Perfil do usuário</h5>
+            <div class="dropdown no-arrow">
+                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                     aria-labelledby="dropdownMenuLink">
+                    <div class="dropdown-header"><i class="fas fa-fw fa-wrench"></i> Ações Gerais</div>
+
+                    <a class="dropdown-item" href="{% url 'user-profile-edit' %}">
+                        <i class="fas fa-fw fa-edit"></i> Editar Perfil</a>
+
+
+                    <a href="{% url 'password_change' %}"
+                       class="dropdown-item"> <i class="fas fa-fw fa-edit"></i> Alterar
+                        Senha</a>
+                </div>
+            </div>
+
+        </div>
+        <!-- Card Body -->
+        <div class="card-body">
+
+
+            <form class="form-user" action="{% url 'user-profile-edit' %}" enctype="multipart/form-data" method="post"
+                  id="">
+                {% csrf_token %}
+
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label><i class="fas fa-user fa-sm"></i> {{ form.first_name.label }}: </label>
+                        {{ form.first_name }}
+                        {% if form.first_name.errors %}
+                        <span class="label">
+                                {{ form.first_name.errors }}
+                        </span>
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label><i class="fas fa-user fa-sm"></i> {{ form.last_name.label }}:</label>
+                        {{ form.last_name }}
+                        {% if form.last_name.errors %}
+                        <span class="label">
+                                {{ form.last_name.errors }}
+                        </span>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-envelope  fa-sm"></i> Email:</label>
+                    <input type="email" value="{{ email }}" disabled/>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label><i class="fas fa-user fa-sm"></i> {{ formComplemento.setor.label }}: </label>
+                        {{ formComplemento.setor }}
+                        {% if formComplemento.setor.errors %}
+                        <span class="label">
+                                {{ formComplemento.setor.errors }}
+                        </span>
+                        {% endif %}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label><i class="fas fa-user fa-sm"></i> {{ formComplemento.telefone.label }}:</label>
+                        {{ formComplemento.telefone }}
+                        {% if formComplemento.telefone.errors %}
+                        <span class="label">
+                                {{ fformComplemento.telefone.errors }}
+                        </span>
+                        {% endif %}
+                    </div>
+                </div>
+
+<!--        </div>-->
+        <div class="btn-group btn-lg btn-block">
+            <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-light ">
+                voltar
+            </a>
+            <button type="submit" class="btn btn-dark">Salvar</button>
+        </div>
+    </div>
+
+
+    </form>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css_appusuario %}
+    <link rel="stylesheet" type="text/css" href='{% static "css/appusuario.css" %}'>
+{% endblock %}
+{% block title %}Complete seu cadastro{% endblock %}
+{% block active_cadastro %}active{% endblock %}
+{% block body_block %}
+
+        <div class="ten wide column">
+            <div class="ui very padded segment">
+                <h1 class="ui header">Complete seu cadastro</h1>
+                <form class="ui form" action="{% url 'usuario-add' %}" method="post" id="form_usuario">
+                    {% csrf_token %}
+                    <div class="field instituicao">
+                        <label>Instituição</label>
+                        <div class="ui grid">
+                            <div class="eleven wide column">
+                                {{ form.instituicao }}
+                                {% if form.instituicao.errors %}
+                                    {{ form.instituicao.errors }}
+                                {% endif %}
+                            </div>
+                            <div class="five wide column">
+                                <button class="ui active button" id="adiconar_instituicao">
+                                    <i class="ui plus icon black"></i>
+                                    Instituição
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ui basic right aligned segment">
+                        <button class="ui large button e-green-button" type="submit">
+                            Salvar
+                        </button>
+                    </div>
+                </form>
+            </div>
+            </div>
+
+
+{% endblock %}

@@ -1,0 +1,130 @@
+{% extends "base_home.html" %}
+{% load static  system %}
+{% block title %}Redefenir Senha{% endblock %}
+
+{% block body_block %}
+
+
+<body class="bg-dark">
+
+<div class="container">
+
+    <div class="card o-hidden border-0 shadow-lg my-6">
+        <div class="card-body p-0">
+            {% if validlink %}
+
+
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+                <div class="col-lg-5 d-none d-lg-block bg-my-register1-image">
+                    {% settings_cadastro_imagem as imagem_cadastro %}
+
+                    {%if imagem_cadastro %}
+                    <img class="bg-login" src="{%media%}{{imagem_cadastro}}">
+                    {%else%}
+                    <img class="bg-login" src="{%static 'img/logo1.png' %}">
+                    {%endif%}
+
+                </div>
+                <div class="col-lg-7">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h1 class="h4 text-gray-900 mb-4">Redefinir Senha</h1>
+                        </div>
+
+                        <form method="post" novalidate class="ui large  form">
+                            {% csrf_token %}
+                            <div class="field">
+                                <label>
+                                    <i class="lock icon"></i>Nova Senha:</label>
+                                {{ form.new_password1 }}
+
+                                {% if form.new_password1.errors %}
+                                <div class="field">
+<!--                                    <input type="text" placeholder="Nova Senha">-->
+
+                                    <div class="ui pointing red basic label">
+                                        {{ form.new_password1.errors }}
+                                    </div>
+                                </div>
+                                {% endif %}
+
+                            </div>
+                            <div class="ui info message">
+                                <ul class="list">
+                                    <li>Sua senha não pode ser tão parecida com suas outras informações pessoais.</li>
+                                    <li>Sua senha precisa conter pelo menos 8 caracteres.</li>
+                                </ul>
+                            </div>
+                            <div class="field">
+                                <label><i class="lock  icon"></i>Digite Novamente:</label>
+                                <label> {{ form.new_password2.help_text }}</label>
+                                {{ form.new_password2 }}
+
+                                {% if form.new_password2.errors %}
+
+                                <div class="field">
+<!--                                    <input type="text" placeholder="Digite Novamente">-->
+                                    <div class="ui pointing red basic label">
+                                        {{ form.new_password2.errors }}
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+
+                            <button class="btn btn-dark btn-user btn-block " type="submit">
+                                Salvar
+                            </button>
+
+
+                            <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-light btn-user btn-block border">
+                                Cancelar
+                            </a>
+
+                        </form>
+                        <hr>
+
+                    </div>
+                </div>
+            </div>
+
+{% else %}
+<div class="row">
+    <div class="col-lg-5 d-none d-lg-block bg-my-register1-image">
+        {% settings_cadastro_imagem as imagem_cadastro %}
+
+        {%if imagem_cadastro %}
+        <img class="bg-login" src="{%media%}{{imagem_cadastro}}">
+        {%else%}
+        <img class="bg-login" src="{%static 'img/logo1.png' %}">
+        {%endif%}
+
+    </div>
+    <div class="col-lg-7">
+        <div class="p-5">
+            <div class="text-center">
+                <h1 class="h4 text-gray-900 mb-4">Redefinir Senha</h1>
+            </div>
+
+
+            <div class="ui negative large message">
+                <div class="header">
+                    Impossível realizar alteração de senha!
+                </div>
+                <p>O link para alteração de senha é inválido, possivelmente já tenha sido utilizado.
+                    Por favor, solicite novamente a alteração de senha clicando <a
+                            href="{% url 'password-reset' %}">AQUI</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    {% endif %}
+   </div>
+    </div>
+
+</div>
+</body>
+
+{% endblock %}

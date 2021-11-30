@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title_block %}
+Detalhes do Chamado
+{% endblock title_block %}
+{% block body_block %}
+{% load static  %}
+
+{%include "chamado/detail.html" %}
+{%endblock%}

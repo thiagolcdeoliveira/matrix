@@ -1,0 +1,222 @@
+{% extends 'base.html' %}
+
+{% block title_block %}
+Adicionar um Chamado
+{% endblock title_block %}
+{% block body_block %}
+
+
+{% load i18n %}
+{{ message_success }}<!-- Area Chart -->
+
+<div class="col-xl-10  col-center-auto justify-content-md-center col-lg-10">
+    {% if form.errors %}
+
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <h5 class="alert-heading"> Erro!</h5>
+        {{form.errors}}
+        {% if form.errors.items|length == 1 %}
+        <p>Corrija o campo abaixo.</p>{% else %}
+        <p>Corrija os campos abaixo.</p>
+        {% endif %}
+
+
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    {% endif %}
+
+
+    <div class="card shadow mb-4">
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-dark">Adicionar um Chamado</h6>
+        </div>
+        <!-- Card Body -->
+        <div class="card-body">
+            <form class="ui form warning" action="" method="post" enctype="multipart/form-data"> {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Título do Chamado</label>
+                        {{ form.nome }}
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Tipo de Chamado</label>
+                        {{ form.tipo_chamado }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4 ">
+                        <label>Solicitante</label>
+                        <div class="input-group">
+                            {{form.solicitante}}
+                            <div class="input-group-append">
+                                <a class="btn btn-dark js-create-object" data-url="{%url 'user-servidor-add'  %}"
+                                   type="button">
+                                    <i class="fas fa-plus fa-sm"></i>
+                                </a>
+                                <a class="btn btn-dark js-create-object" data-url="{%url 'user-servidor-pesquisar'  %}"
+                                   type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </a>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Prioridade</label>
+                        {{form.prioridade}}
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Setor</label>
+                        <div class="input-group">
+                            {{ form.setor }}
+                            <div class="input-group-append">
+                                <a data-url="{%url 'setor-add'  %}" class="btn btn-dark js-create-object">
+                                    <i class="fas fa-plus fa-sm"></i>
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Responsável</label>
+                        {{form.responsavel}}
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label>Situação</label>
+                        {{ form.situacao }}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label>Propriedade</label>
+                        <div class="input-group">
+
+                            {{form.propriedade}}
+
+                            <div class="input-group-append">
+                                <a data-url="{%url 'propriedade-ajax-add'  %}" class="btn btn-dark js-create-object">
+                                    <i class="fas fa-plus fa-sm"></i>
+                                </a>
+                                <a data-url="{%url 'propriedade-search'  %}" class="btn btn-dark js-create-object">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </a>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                {% if form.instance.pk %}
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Equipamentos Utilizados</label>
+                        <table id="id_equipamento_utilizado_table" class="table table-reponsive "
+                               {%if form.instance.equipamento_utilizado.all %} {%else%}hidden {%endif%}
+                        >
+                            <tr>
+                                <th>#Cód</th>
+                                <th>Nome</th>
+                                <th>Excluir/Incluir</th>
+                            </tr>
+                            <tbody>
+                            {%if form.instance.equipamento_utilizado.all %}
+                            {%for object in form.instance.equipamento_utilizado.all%}
+                            <tr>
+                                <td>#{{object.pk}}</td>
+                                <td>{{object.nome}}</td>
+                                <td><input checked name="equipamento_utilizado" type="checkbox" value='{{object.pk}}'/>
+                                </td>
+                            </tr>
+                            {%endfor%}
+                            {%else%} {%endif%}
+                            </tbody>
+                        </table>
+                        <div class="input-group">
+                            {{form.equipamento_utilizado}}
+
+                            <a data-url="{%url 'equipamento-ajax-search'  %}"
+                               class="btn btn-block btn-light js-create-object">
+                                <i class="fas fa-plus fa-sm"></i> Relacionar os Equipamentos utilizados
+                            </a>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label>Produtos Utilizados</label>
+                        <table id="id_produto_utilizado_table" class="table table-reponsive "
+                               {%if form.instance.produto_utilizado.all %} {%else%} hidden {%endif%}>
+                            <tr>
+                                <th>#Cód</th>
+                                <th>Nome</th>
+                                <th>Excluir</th>
+                            </tr>
+                            <tbody>
+                            {%if form.instance.produto_utilizado.all %}
+                            {%for object in form.instance.produto_utilizado.all%}
+                            <td>#{{object.pk}}</td>
+                            <td>{{object.nome}}</td>
+                            <td><input checked name="produto_utilizado" type="checkbox" value='{{object.pk}}'/>
+                            </td>
+                            </tr>
+
+                            {%endfor%}
+                            {%else%} {%endif%}
+                            </tbody>
+                        </table>
+                        {{form.produto_utilizado}}
+                        <div class="input-group">
+
+                            <a data-toggle="modal" data-url="{%url 'produto-ajax-search'  %}"
+                               class="btn btn-block btn-light js-create-object">
+                                <i class="fas fa-plus fa-sm"></i> Relacionar Produtos Utilizados
+                            </a>
+
+                        </div>
+
+                    </div>
+                </div>
+                {%endif%}
+                <div class="form-group">
+                    <label>Descrição</label>
+                    {{form.descricao}}
+                </div>
+
+                <div class="form-group">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="notificar" id="gridCheck">
+                        <label class="form-check-label" for="gridCheck">
+                            Deseja Notificar o Solicitante
+                        </label>
+                    </div>
+                </div>
+
+                <div class="btn-group btn-lg btn-block">
+                    <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-light ">
+                        voltar
+                    </a>
+                    <button type="submit" class="btn btn-dark">Cadastrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal modal_add fade bd-example-modal-lg" id="modal-object">
+
+</div>
+
+
+{%endblock%}

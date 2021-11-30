@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+
+{% block title_block %}
+Listar Chamados
+{% endblock title_block %}
+{% load  static %}
+{% block body_block %}
+
+
+<div class="col-xl-10  col-center-auto justify-content-md-center col-lg-10">
+    <div class="card shadow mb-4">
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-dark"><i class="fas fa-bell fa-fw"></i> Listar Notificações</h6>
+            <div class="dropdown no-arrow">
+                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                </a>
+
+            </div>
+        </div>
+        <!-- Card Body -->
+        <div class="card-body">
+            <form class="ui form warning" action="{%url 'chamado-list' %}" method="get" enctype="multipart/form-data">
+                <div class="form-row">
+                    {% csrf_token %}
+                    <div class="form-group col-md-6">
+                        <label>Descrição</label>
+                        <div class="input-group">
+                        <input class="form-control" name="descricao">
+
+                         <div class="input-group-append">
+                            <select style="border: solid 0.5px #d1d3e2 " class="btn" name="tipo">
+                            <option value="0">Todos</option>
+                            <option value="{{select.codigo}}">Codigo</option>
+                            <option value="{{select.nome}}">Título</option>
+                           {%if request.user.is_superuser%}
+
+                            <option value="{{select.solicitante}}">Solicitante</option>
+                            <option value="{{select.responsavel}}">Responsavel</option>{%endif%}
+
+                            <option value="{{select.descricao}}">Descriçao</option>
+                            </select>
+                         </div>
+                    </div>
+                        </div>
+
+
+                    <div class="form-group col-md-6">
+                      <label>Satus</label><div class="input-group">
+                        <select name="setor" class="form-control" >
+                        <option value="" selected="">---------</option>
+                        <option value="1" >Não Lida</option>
+                        <option value="2" >Lida</option>
+
+                        </select>
+
+                            <div class="input-group-append">
+                                <button class="btn btn-dark" type="submit">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </form>
+            <div class="table-responsive">
+                <table class="table table-bordered"   cellspacing="0">
+                    <thead>
+                    <tr>
+
+                        <th>Título</th>
+                        <th>Descrição</th>
+                        <th>Prioridade</th>
+                          <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {%for object in object_list %}
+                    <tr>
+                        <td>{{object.nome}}</td>
+                        <td>{{object.tipo_notificacao.descricao}}</td>
+                        <td>{{object.prioridade}}</td>
+                        <td>{%if object.desativado %}
+                            Lida
+                            {%else%}
+                            Não Lida
+                            {%endif%}
+                        </td>
+                        <td class="text-center">
+                            <div class="btn-group" >
+
+
+            <div class="dropdown no-arrow">
+                <a class="dropdown-toggle" href="#" role="button"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-cogs fa-sm fa-fw text-gray-400"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                     aria-labelledby="dropdownMenuLink">
+                    <div class="dropdown-header"><i class="fas fa-fw fa-wrench"></i> Ações Gerais</div>
+                    <a class="dropdown-item"   href="{% url 'notificacao' object.id %}"> <i class="fas fa-fw fa-eye"></i> Visualizar </a>
+
+                    {%if not object.desativado %}
+                    <a class="dropdown-item" href="{#{% url 'notificacao' object.pk %}#}">
+                        <i class="fas fa-fw fa-times"></i>Marcar Como Lida
+                    </a>
+                    {%else%}
+                    <a class="dropdown-item" href="{#{% url 'notificacao' object.pk %}#}">
+                        <i class="fas fa-fw fa-edit"></i>Marcar Como Não Lida
+                    </a>
+                    {%endif%}
+                </div>
+            </div>
+<!--                        <span class="btn-group">-->
+<!--                                <a type="button" class="btn btn-secondary" href="{% url 'chamado-detail' object.id %}"> <i class="fas fa-fw fa-eye"></i> </a>-->
+<!--                                <a type="button" class="btn btn-secondary" href="{% url 'chamado-admin-update' object.id%}"> <i-->
+<!--                                        class="fas fa-fw fa-edit"></i> </a>-->
+<!--                                {% if not object.status %}-->
+<!--                                <a type="button" class="btn btn-secondary"  href="{% url 'chamado-fechar' object.id%}"> <i class="fas fa-fw fa-times"></i> </a>-->
+<!--                                {%else%}-->
+<!--                                <a type="button" class="btn btn-secondary"  href="{% url 'chamado-abrir' object.id%}"> <i class="fas fa-fw fa-check"></i> </a>-->
+<!--                                {%endif%}-->
+<!--                        </span>-->
+                        </td>
+                    </tr>
+                    {%endfor%}
+                    </tbody>
+                </table>
+                {%include "includes/paginete_busca1.html"%}
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block js_block %}
+
+
+{% endblock js_block %}
+{%endblock%}

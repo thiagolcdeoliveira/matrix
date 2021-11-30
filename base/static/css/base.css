@@ -1,0 +1,101 @@
+/*!
+ * Start Bootstrap - One Page Wonder v5.0.8 (https://startbootstrap.com/template-overviews/one-page-wonder)
+ * Copyright 2013-2020 Start Bootstrap
+ * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-one-page-wonder/blob/master/LICENSE)
+ */
+
+.banner {
+ background-image: url("../img/tech.jpg") !important;
+}
+.black{
+color:black;
+}
+/*!
+ * Start Bootstrap - One Page Wonder v5.0.8 (https://startbootstrap.com/template-overviews/one-page-wonder)
+ * Copyright 2013-2020 Start Bootstrap
+ * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-one-page-wonder/blob/master/LICENSE)
+ */
+.bg-black {
+  background-color: #000 !important;
+}
+/*nav{
+position:sticky !important;
+
+}*/
+footer{
+    min-height: 15% !important;
+    margin-top: 7% !important;
+    margin-bottom: 0em !important;
+    color: white;
+}
+.navbar-custom {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.navbar-custom .navbar-brand {
+  text-transform: uppercase;
+  font-size: 1rem;
+  letter-spacing: 0.1rem;
+  font-weight: 700;
+}
+
+.navbar-custom .navbar-nav .nav-item .nav-link {
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1rem;
+}
+
+
+.espaco{
+   margin-top: 2%;
+
+}
+.pb-5-novo, .py-5-novo{
+    padding-bottom: 5rem!important;
+    padding-top: 5rem!important;
+}
+.center{text-align:center}
+#space-invaders {
+  margin: 0 auto;
+  display: block;
+  background: white
+}
+.bg-my-register-image {
+  background: url("../img/register.jpg")!important;
+  background-position: center;
+  background-size: cover;
+}
+.bg-my-login-image {
+  background: url("../img/logo1.png")!important;
+  background-position: center;
+  background-size: center;
+}
+.bg-login{
+  width: 100%!important;
+
+
+}
+.my-10{
+margin-top: 10em !important;
+}
+
+.my-6{
+margin-top: 6em !important;
+}
+.bg-dark{
+background-color:#5a5c69;
+}
+
+.errorlist > li{
+    display: block !important;
+ }
+
+.collapse-my-menu{
+font-size:12px !important;
+}
+.bg-customize{
+color:#ffffff !important;
+}

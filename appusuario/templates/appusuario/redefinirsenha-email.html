@@ -1,0 +1,13 @@
+{% autoescape off %}
+Prezado(a) senhor(a)
+
+Para iniciar o processo de redefinição de senha para sua conta.
+Clique no link abaixo:
+
+{{ protocol }}://{{ domain }}{% url 'password_reset_confirm' uidb64=uid token=token %}
+
+Se ao clicar no link acima nada acontecer, copie e cole na URL do navegador.
+
+Este email foi enviado automaticamente pelo Sistema de Chamados da Prefeitura de Araquari, favor não responder
+Coordenação Geral do Sistema
+{% endautoescape %}

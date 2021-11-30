@@ -1,0 +1,122 @@
+{% load static  system %}
+<div class="col-xl-10  col-center-auto justify-content-md-center col-lg-10">
+    <div class="card shadow mb-4">
+        <!-- Card Header - Dropdown -->
+        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+            <h6 class="m-0 font-weight-bold text-dark">Detalhes do Chamado</h6>
+            <div class="dropdown no-arrow">
+                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                     aria-labelledby="dropdownMenuLink">
+{% if request.user|has_group:"Administrador"%}
+                    <div class="dropdown-header"><i class="fas fa-fw fa-key"></i> Adimistrativo</div>
+
+                    <a class="dropdown-item" href="{#{% url 'chamado-admin-update' object.pk %}#}"><i
+                            class="fas fa-fw fa-edit"></i>
+                        Editar</a>
+                    <a class="dropdown-item" href="{#{% url 'chamado-gera-qrcode' object.pk %}#}"><i
+                            class="fas fa-fw fa-wrench"></i> Gerar
+                        Qrcode</a>
+                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-header"><i class="fas fa-fw fa-wrench"></i> Ações Gerais</div>
+
+                    {%endif %}
+                    {%if not object.status %}
+                    <a class="dropdown-item" href="{% url 'chamado-fechar' object.pk %}">
+                        <i class="fas fa-fw fa-times"></i>Fechar Chamado
+                    </a>
+                    {%else%}
+                    <a class="dropdown-item" href="{% url 'chamado-abrir' object.pk %}">
+                        <i class="fas fa-fw fa-edit"></i>Reabrir Chamado
+                    </a>
+                    {%endif%}
+                </div>
+            </div>
+        </div>
+        <!-- Card Body -->
+        <div class="col-md-12 position-relative">
+            <div class="row ">
+                <div class="col-4 d-none d-lg-block">
+                    <img src="{% static '/img/logo2.png' %}" width="100%">
+                </div>
+                <div class="col p-4 d-flex flex-column position-static">
+                    <strong class="d-inline-block mb-2 text-dark">#{{object.id}}</strong>
+                    <h3 class="mb-0">{{object.nome}}</h3>
+                    <div class="mb-1 text-muted">Chamado aberto por {{object.servidor}}</div>
+                    <div class="mb-1 text-muted">{%if not object.responsavel %}
+                        Responsavel por atender o chamado: {{object.responsavel}}
+                        {%endif%}
+                    </div>
+                    <div class="mb-1 text-muted"> #{{object.id}}</div>
+                    <div class="mb-1 text-muted"> {{object.tipo_chamado}}</div>
+                    <div class="mb-1 text-muted">{{object.data_inicio}}</div>
+                    <div class="mb-1 text-muted"> {{object.setor.nome}} /</div>
+                    <div class="mb-1 text-muted">{{object.prioridade}}</div>
+                    <div class="mb-1 text-muted"> {%if object.data_fim%} {{object.data_fim}} {%else%} Nao Finalizado
+                        {%endif%}
+                    </div>
+
+                </div>
+            </div>
+            <div class="row ">
+
+                <div class="col p-4 d-flex flex-column position-static">
+                    <div class="mb-0">Descrição:</div>
+                    <p class="card-text mb-auto">{{object.descricao}}</p>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col p-4 d-flex flex-column position-static">
+                    {%if object.mensagem.all %} <div class="card-header  row  page-header ">
+                        <div class="mb-0 center "><h5 class="  ">Mensagens</h5></div>
+                    </div> {%endif %}
+                    <div class="comment-section">
+                        {%if object.mensagem.all %}
+                        {%for mensagem in object.mensagem.all%}
+                        <div class="bg-white p-2">
+                            <div class="d-flex flex-row user-info"><img class="rounded-circle"
+                                                                        src="{%static 'img/starwars.png' %}" width="40">
+                                <div class="d-flex flex-column justify-content-start ml-2"><span
+                                        class="d-block font-weight-bold name"> {{mensagem.usuario.first_name}}</span><span
+                                        class="date text-black-50">{{mensagem.usuario.first_name}} - {{mensagem.data|date:"d / M / Y" }}</span>
+                                </div>
+                            </div>
+                            <div class="mt-2">
+                                <p class="comment-text">
+                                    {{mensagem.descricao}}
+                            </div>
+                        </div>
+                        {%endfor%}
+                        {%endif %}
+                        {% if user.is_authenticated%}
+                        <div class="bg-white">
+                        </div>
+                        <form class="" action="{%url 'mensagem-chamado-add' object.id  %}"
+                              method="post"
+                              enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="bg-light p-2">
+                                <div class="d-flex flex-row align-items-start">
+                                    <img class="rounded-circle" src="{%static 'img/starwars.png' %}" width="40">
+                                    <textarea name="descricao"
+                                              class="form-control ml-1 shadow-none textarea"></textarea>
+                                </div>
+                                <div class="mt-2 text-right">
+                                    <button class="btn btn-light btn-sm ml-1 shadow-none" type="button">Cancel
+                                        <button class="btn btn-dark btn-sm shadow-none" type="submit">Enviar</button>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        {%endif%}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
